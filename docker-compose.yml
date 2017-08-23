@@ -1,16 +1,16 @@
 version: '2'
 services:
  php:
-   build: .
+   image: rafanercessian/aplicacao
    ports:
-     - '8080:80'
+     - '9090:80'
    networks:
       mynet:
         ipv4_address: 172.20.0.2
 
 
  db:
-   build: arquivo_dockerfile/.
+   image: rafanercessian/aplicacao_database
    volumes:
     - /home/rafael/Downloads/vol_mysql:/var/lib/mysql
    environment:
