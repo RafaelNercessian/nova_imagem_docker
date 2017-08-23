@@ -1,0 +1,28 @@
+version: '2'
+services:
+ php:
+   build: .
+   ports:
+     - '8080:80'
+   networks:
+      mynet:
+        ipv4_address: 172.20.0.2
+
+
+ db:
+   build: arquivo_dockerfile/.
+   volumes:
+    - /home/rafael/Downloads/vol_mysql:/var/lib/mysql
+   environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=loja
+    - MYSQL_ROOT_HOST=172.20.0.2
+   networks:
+      mynet:
+        ipv4_address: 172.20.0.3
+
+networks:
+  mynet:
+    ipam:
+      config:
+      - subnet: 172.20.0.0/24
