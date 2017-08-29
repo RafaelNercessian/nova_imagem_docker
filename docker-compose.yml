@@ -1,28 +1,14 @@
 version: '2'
 services:
- php:
-   image: rafanercessian/aplicacao
-   ports:
-     - '9090:80'
-   networks:
-      mynet:
-        ipv4_address: 172.20.0.2
-
-
- db:
-   image: rafanercessian/aplicacao_database
-   volumes:
-    - /home/rafael/Downloads/vol_mysql:/var/lib/mysql
-   environment:
-    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    - MYSQL_DATABASE=loja
-    - MYSQL_ROOT_HOST=172.20.0.2
-   networks:
-      mynet:
-        ipv4_address: 172.20.0.3
-
-networks:
-  mynet:
-    ipam:
-      config:
-      - subnet: 172.20.0.0/24
+  db:
+    image: mysql
+    environment:
+                - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+                - MYSQL_USER=root
+                - MYSQL_DATABASE=loja
+  web:
+    image: rafanercessian/aplicacao:final2-roteiro 
+    ports:
+      - "80:80"
+    depends_on:
+      - db
